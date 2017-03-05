@@ -6,29 +6,15 @@
 // Created on: 05 Mar 2017 21:52:28 +0100 (CET)
 //
 
-const PHYS_RAM_SIZE: u64 = 128 * 1024 * 1024;
-const VIRT_RAM_SIZE: u64 = 4 * 1024 * 1024 * 1024;
+#[macro_use]
+mod util;
 
-pub fn to_nice_unit(value: u64) -> String {
-  let mut units = vec!["EiB", "PiB", "TiB", "GiB", "MiB", "KiB", "B"];
-  let mut final_unit = units.pop().unwrap();
-
-  let mut value = value as f64;
-  'a: while value >= 1024f64 {
-    if let Some(unit) = units.pop() {
-      final_unit = unit;
-      value /= 1024f64;
-    } else {
-      break 'a;
-    }
-  }
-
-  return format!("{} {}", value, final_unit);
-}
+const PHYS_RAM_SIZE: u64 = MiB!(128);
+const VIRT_RAM_SIZE: u64 = GiB!(4);
 
 fn main() {
-  println!("Physical address space size: {}", to_nice_unit(PHYS_RAM_SIZE));
-  println!("Virtual address space size:  {}", to_nice_unit(VIRT_RAM_SIZE));
+  println!("Physical address space size: {}", util::to_nice_unit(PHYS_RAM_SIZE));
+  println!("Virtual address space size:  {}", util::to_nice_unit(VIRT_RAM_SIZE));
 }
 
 //
