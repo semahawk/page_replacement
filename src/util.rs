@@ -10,7 +10,7 @@ macro_rules! KiB { ($value:expr) => ($value * 1024); }
 macro_rules! MiB { ($value:expr) => (KiB!($value) * 1024); }
 macro_rules! GiB { ($value:expr) => (MiB!($value) * 1024); }
 
-pub fn to_nice_unit(value: u64) -> String {
+pub fn to_nice_unit(value: usize) -> String {
   let mut units = vec!["EiB", "PiB", "TiB", "GiB", "MiB", "KiB", "B"];
   let mut final_unit = units.pop().unwrap();
 
