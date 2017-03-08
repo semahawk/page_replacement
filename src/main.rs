@@ -6,6 +6,8 @@
 // Created on: 05 Mar 2017 21:52:28 +0100 (CET)
 //
 
+extern crate rand;
+
 #[macro_use]
 mod util;
 mod memory;
@@ -25,8 +27,10 @@ fn main() {
 
   let mut memory = memory::new(PHYS_RAM_SIZE, VIRT_RAM_SIZE, PAGE_SIZE);
 
-  for _ in 0..10 {
-    memory.access_page(0x0babe000);
+  for _ in 0..1_000_000 {
+    let deviation = rand::random::<u32>() % 8 + rand::random::<u32>() % 8;
+    let addr = 0xbabe0000u32 + PAGE_SIZE as u32 * deviation;
+    memory.access_page(addr);
   }
 }
 
